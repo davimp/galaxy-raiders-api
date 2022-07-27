@@ -38,8 +38,7 @@ data class Point2D(val x: Double, val y: Double) {
 
   fun contactDirection(p: Point2D): Vector2D {
     val contactVector: Vector2D = contactVector(p)
-    val magnitude: Double = contactVector.magnitude
-    return Vector2D(contactVector.dx / magnitude, contactVector.dy / magnitude)
+    return Vector2D(contactVector.dx / contactVector.magnitude, contactVector.dy / contactVector.magnitude)
   }
 
   fun distance(p: Point2D): Double {

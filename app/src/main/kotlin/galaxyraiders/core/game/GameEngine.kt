@@ -90,7 +90,14 @@ class GameEngine(
     this.field.spaceObjects.forEachPair {
         (first, second) ->
       if (first.impacts(second)) {
-        first.collideWith(second, GameEngineConfig.coefficientRestitution)
+        if((first.type == "Missile" && second.type == "Asteroid")
+          || (first.type == "Asteroid" && second.type == "Missile")) {
+          val asteroid = if (first.type == "Asteroid") first else second
+          this.field.generateExplosions(asteroid.center)
+          //this.field.removeExplosion(listOf(asteroid))
+        }
+        else
+          first.collideWith(second, GameEngineConfig.coefficientRestitution)
       }
     }
   }
